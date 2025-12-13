@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
-const fs = require('fs'); // Added for debugging
+const fs = require('fs');
 const noteRoutes = require('./routes/noteRoutes');
 const db = require('./config/database');
 
@@ -14,14 +14,12 @@ app.use(express.json());
 // 1. API Routes
 app.use('/api/notes', noteRoutes);
 
-// 2. DEBUG: Check if frontend files exist (Look in the logs for this!)
+// 2. DEBUG: Check if frontend files exist
 const distPath = path.join(__dirname, '../frontend/dist');
 console.log('Checking for frontend at:', distPath);
 
 if (fs.existsSync(distPath)) {
   console.log('✅ Frontend folder FOUND!');
-  const files = fs.readdirSync(distPath);
-  console.log('   Files found:', files);
 } else {
   console.error('❌ Frontend folder NOT found. Did the build run?');
 }
@@ -30,7 +28,8 @@ if (fs.existsSync(distPath)) {
 app.use(express.static(distPath));
 
 // 4. Handle SPA (Single Page App) History Mode
-app.get('*', (req, res) => {
+// --- FIX IS HERE: We changed '*' to /.*/ ---
+app.get(/.*/, (req, res) => {
   const indexPath = path.join(distPath, 'index.html');
   if (fs.existsSync(indexPath)) {
     res.sendFile(indexPath);
