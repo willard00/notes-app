@@ -3,7 +3,9 @@ import { ref, computed, onMounted } from 'vue';
 import axios from 'axios';
 
 // --- Config ---
-const API_URL = 'http://localhost:3000/api/notes';
+const API_URL = import.meta.env.PROD 
+  ? '/api/notes' 
+  : 'http://localhost:3000/api/notes';
 
 // --- State ---
 const notes = ref([]);
