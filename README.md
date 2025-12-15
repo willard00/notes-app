@@ -1,7 +1,7 @@
 # 🚀 NexusNotes
 
 A modern, full-stack note-taking application designed with a focus on UI/UX and smooth interactions.
-
+This is the app link
 **[🔴 View Live Demo on Render](https://notes-app-jeom.onrender.com/)**
 
 ---
