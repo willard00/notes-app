@@ -1,3 +1,18 @@
+# 🚀 NexusNotes
+
+A modern, full-stack note-taking application designed with a focus on UI/UX and smooth interactions.
+
+**[🔴 View Live Demo on Render](https://notes-app-jeom.onrender.com/)**
+
+---
+
+## 🛠️ Tech Stack
+
+* **Frontend:** Vue.js 3, Tailwind CSS, Vite
+* **Backend:** Node.js, Express.js
+* **Database:** SQLite (Embedded)
+
+
 ## 🤖 Development Process & AI Usage
 
 I utilized AI tools (Gemini) to accelerate development, specifically for UI inspiration, deployment configuration, and troubleshooting platform-specific errors. 
