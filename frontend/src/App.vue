@@ -30,12 +30,34 @@ const modalTitle = computed(() => {
   return 'View Idea';
 });
 
+// --- Helper Functions ---
+// NEW: Formats the date nicely
+const formatDate = (dateString) => {
+  if (!dateString) return 'Just now';
+  const date = new Date(dateString);
+  return new Intl.DateTimeFormat('en-US', {
+    month: 'short', 
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric'
+  }).format(date);
+};
+
+const getGradient = (id) => {
+  const grads = [
+    'from-pink-500 via-red-500 to-yellow-500',
+    'from-blue-400 via-indigo-500 to-purple-500',
+    'from-green-400 via-teal-500 to-emerald-500',
+    'from-orange-400 via-pink-500 to-purple-600'
+  ];
+  return grads[id % grads.length] || grads[0];
+};
+
 // --- API Actions ---
 const fetchNotes = async () => {
   isLoading.value = true;
   try {
     const res = await axios.get(API_URL);
-    // Fake delay for demo purposes
     setTimeout(() => {
       notes.value = res.data;
       isLoading.value = false;
@@ -87,16 +109,6 @@ const switchToEdit = () => {
 const autoResize = (event) => {
   event.target.style.height = 'auto';
   event.target.style.height = event.target.scrollHeight + 'px';
-};
-
-const getGradient = (id) => {
-  const grads = [
-    'from-pink-500 via-red-500 to-yellow-500',
-    'from-blue-400 via-indigo-500 to-purple-500',
-    'from-green-400 via-teal-500 to-emerald-500',
-    'from-orange-400 via-pink-500 to-purple-600'
-  ];
-  return grads[id % grads.length] || grads[0];
 };
 
 onMounted(fetchNotes);
@@ -212,7 +224,10 @@ onMounted(fetchNotes);
           </div>
 
           <div class="mt-6 pt-5 border-t border-white/5 flex justify-between items-center">
-             <span class="text-xs font-bold text-slate-500 uppercase tracking-widest">Just now</span>
+             <span class="text-xs font-bold text-slate-500 uppercase tracking-widest">
+               {{ formatDate(note.created_at) }}
+             </span>
+             
              <div class="flex gap-2">
                 <button 
                   @click.stop="openModal(note, 'edit')" 

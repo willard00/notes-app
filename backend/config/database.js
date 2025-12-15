@@ -9,10 +9,13 @@ const db = new sqlite3.Database(dbPath, (err) => {
     console.error('Error opening database:', err.message);
   } else {
     console.log('Connected to the SQLite database.');
+    
+    // UPDATED: Added created_at column
     db.run(`CREATE TABLE IF NOT EXISTS notes (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       title TEXT,
-      content TEXT
+      content TEXT,
+      created_at TEXT
     )`);
   }
 });
